@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-
 import '../shared/textInputDecoration.dart';
 
 class SignUp extends StatefulWidget {
@@ -20,16 +19,6 @@ class _SignUpState extends State<SignUp> {
   String email = '';
   bool passwordIcon = true;
   bool isValidet = false;
-  // @override
-  // void initState() {
-  //   if(_formKey.currentState!.validate()){
-  //     setState(() {
-  //       isValidet = true;
-  //     });
-  //   }
-  //   super.initState();
-  // }
-
   TextEditingController _nameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passController = TextEditingController();
