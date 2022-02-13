@@ -117,7 +117,70 @@ class _FirstScreenState extends State<FirstScreen> {
                   width: double.infinity,
                   height: 40,
                   child: ElevatedButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        showBottomSheet(
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(20),
+                              ),
+                            ),
+                            context: context,
+                            builder: (context) => Container(
+                              height: 600,
+
+                              child: Container(
+                                decoration:  BoxDecoration(
+                                  color: HexColor("#FFFFFF"),
+                                  borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(30.0),
+                                      topRight: Radius.circular(30.0)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 5,
+                                      blurRadius: 7,
+                                      offset: Offset(0, 3), // changes position of shadow
+                                    ),
+                                  ],
+
+                                ),
+                                child: Container(
+                                  child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <Widget>[
+                                    SizedBox(height: 20.0),
+                                    Image.asset('assets/icons/line.png',width: 30,),
+                                    DefaultTabController(
+                                        length: 2, // length of tabs
+                                        initialIndex: 0,
+                                        child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <Widget>[
+                                          Container(
+                                            child: TabBar(
+                                              labelColor: HexColor("#32B768"),
+                                              indicatorColor: HexColor("#32B768"),
+                                              unselectedLabelColor: HexColor("#89909E"),
+                                              tabs: const [
+                                                Tab(text: 'Login'),
+                                                Tab(text: 'Create Account'),
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                              height: 450, //height of TabBarView
+                                              decoration: const BoxDecoration(
+                                                  border: Border(top: BorderSide(color: Colors.grey, width: 0.5))
+                                              ),
+                                              child: const TabBarView(children: <Widget>[
+                                                Login(),
+                                                SignUp()
+                                              ])
+                                          )
+                                        ])
+                                    ),
+                                  ]),
+                                ),
+                              ),
+                            )
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         primary: HexColor("#D1FAE5"),
                       ),
@@ -139,6 +202,7 @@ class _FirstScreenState extends State<FirstScreen> {
                           child: const Text("The terms ands Conditions", style: TextStyle(color: Colors.green),
                           ),
                         onTap: (){
+
 
                         },
                       ),
