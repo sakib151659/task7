@@ -6,9 +6,12 @@ const textInputDecoration =  InputDecoration(
   filled: true,
 
   enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey, width: 2.0)
+      borderSide: BorderSide(color: Colors.grey, width: 2.0),
+    borderRadius: BorderRadius.all(Radius.circular(20)),
   ),
   focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.blue, width: 2.0)
+      borderSide: BorderSide(color: Colors.green, width: 2.0),
+    borderRadius: BorderRadius.all(Radius.circular(20)),
   ),
+
 );

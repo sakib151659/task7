@@ -12,15 +12,57 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+
   final _formKey = GlobalKey<FormState>();
   String userName = '';
   String password = '';
   String error = '';
   String email = '';
   bool passwordIcon = true;
+  bool isValidet = false;
+  // @override
+  // void initState() {
+  //   if(_formKey.currentState!.validate()){
+  //     setState(() {
+  //       isValidet = true;
+  //     });
+  //   }
+  //   super.initState();
+  // }
+
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _nameController.addListener(() {
+      setState(() {}); // setState every time text changes
+    });
+
+    _emailController.addListener(() {
+      setState(() {}); // setState every time text changes
+    });
+
+    _passController.addListener(() {
+      setState(() {}); // setState every time text changes
+    });
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -36,16 +78,9 @@ class _SignUpState extends State<SignUp> {
                     const Text("Full Name"),
                     const SizedBox(height: 20.0),
                     TextFormField(
+                        controller: _nameController,
                         decoration:textInputDecoration.copyWith(
                           hintText: 'Username',
-                          border: const OutlineInputBorder(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(20.0)),
-                            borderSide: BorderSide(color: Colors.grey), ),
-                          enabledBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
                         ),
                         validator: (val) => val!.isEmpty? 'Enter an user Name' : null ,
                         onChanged: (val){
@@ -58,19 +93,13 @@ class _SignUpState extends State<SignUp> {
                     const Text("Email Address"),
                     const SizedBox(height: 20.0),
                     TextFormField(
+                        controller: _emailController,
                         decoration:textInputDecoration.copyWith(
                           hintText: 'Ex. sakibkhan@gmail.com',
-                          border: const OutlineInputBorder(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(20.0)),
-                            borderSide: BorderSide(color: Colors.grey), ),
-                          enabledBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
+
                         ),
                         keyboardType: TextInputType.emailAddress,
-                        validator: (val) => val!.isEmpty? 'Enter an Valid Email' : null ,
+                        validator: (val) => val!.isEmpty  || !val.contains('@') || !val.endsWith('.com') ?'Enter an Valid Email' : null ,
                         onChanged: (val){
                           setState(()=> email= val);
 
@@ -82,17 +111,9 @@ class _SignUpState extends State<SignUp> {
                     const Text("Password"),
                     const SizedBox(height: 20.0),
                     TextFormField(
+                      controller: _passController,
                         decoration:textInputDecoration.copyWith(
                             hintText: 'Password',
-                            border: const OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(20.0)),
-                              borderSide: BorderSide(color: Colors.grey), ),
-                            enabledBorder: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                              borderSide: BorderSide(color: Colors.grey),
-                            ),
-
                         ),
 
                         obscureText: true,
@@ -112,10 +133,11 @@ class _SignUpState extends State<SignUp> {
                             padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                primary: HexColor("#F4F4F4"),
+                                //primary: HexColor("#F4F4F4"),
+                                primary: (_nameController.text.isEmpty || _passController.text.length<6  || !_emailController.text.contains('@') || !_emailController.text.endsWith(".com")) ? HexColor("#F4F4F4") : Colors.green,
                               ),
-                              child: const Text('Registration',
-                                style: TextStyle(color: Colors.grey, fontSize: 17.0, ),
+                              child: Text('Registration',
+                                style: TextStyle(color: (_nameController.text.isEmpty || _passController.text.length<6  || !_emailController.text.contains('@') || !_emailController.text.endsWith(".com")) ? Colors.grey : Colors.white, fontSize: 17.0, ),
 
                               ),
                               onPressed: () {
@@ -163,6 +185,9 @@ class _SignUpState extends State<SignUp> {
                         ),
                       ],
                     ),
+
+                    SizedBox(height: 60,),
+                    Container(),
 
                     SizedBox(height: 12.0),
                     Text(
