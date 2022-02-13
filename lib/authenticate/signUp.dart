@@ -108,7 +108,7 @@ class _SignUpState extends State<SignUp> {
                         ),
 
                         obscureText: true,
-                        validator: (val) => val!.length < 6 ? 'Enter at lest 6 digit password' : null ,
+                        validator: (val) => val!.isValidPass() ? null  : 'Enter minimum eight characters, at least 1 letter and 1 number',
                         onChanged: (val){
                           setState(()=> password = val);
 
@@ -125,10 +125,10 @@ class _SignUpState extends State<SignUp> {
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 //primary: HexColor("#F4F4F4"),
-                                primary: (_nameController.text.isEmpty || _passController.text.length<6  || !_emailController.text.contains('@') || !_emailController.text.endsWith(".com")) ? HexColor("#F4F4F4") : Colors.green,
+                                primary: (_nameController.text.isEmpty || _passController.text.length<8  || !_emailController.text.contains('@') || !_emailController.text.endsWith(".com")) ? HexColor("#F4F4F4") : Colors.green,
                               ),
                               child: Text('Registration',
-                                style: TextStyle(color: (_nameController.text.isEmpty || _passController.text.length<6  || !_emailController.text.contains('@') || !_emailController.text.endsWith(".com")) ? Colors.grey : Colors.white, fontSize: 17.0, ),
+                                style: TextStyle(color: (_nameController.text.isEmpty || _passController.text.length<8  || !_emailController.text.contains('@') || !_emailController.text.endsWith(".com")) ? Colors.grey : Colors.white, fontSize: 17.0, ),
 
                               ),
                               onPressed: () {
@@ -201,6 +201,15 @@ extension EmailValidator on String {
   bool isValidEmail() {
     return RegExp(
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+        .hasMatch(this);
+  }
+}
+
+
+extension PassValidator on String {
+  bool isValidPass() {
+    return RegExp(
+        r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$')
         .hasMatch(this);
   }
 }

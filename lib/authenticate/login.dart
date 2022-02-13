@@ -82,7 +82,7 @@ import '../shared/textInputDecoration.dart';
                          ),
 
                          obscureText: true,
-                         validator: (val) => val!.length < 6 ? 'Enter at lest 6 digit password' : null ,
+                         validator: (val) => val!.isValidPass() ? null  : 'Enter minimum eight characters, at least 1 letter and 1 number',
                          onChanged: (val){
                            setState(()=> password = val);
 
@@ -115,10 +115,10 @@ import '../shared/textInputDecoration.dart';
                              child: ElevatedButton(
                                style: ElevatedButton.styleFrom(
                                  //primary: HexColor("#F4F4F4"),
-                                 primary: (_passController.text.length<6  || !_emailController.text.contains('@') || !_emailController.text.endsWith(".com")) ? HexColor("#F4F4F4") : Colors.green,
+                                 primary: (_passController.text.length<8  || !_emailController.text.contains('@') || !_emailController.text.endsWith(".com")) ? HexColor("#F4F4F4") : Colors.green,
                                ),
                                child: Text('Login',
-                                 style: TextStyle(color: (_passController.text.length<6  || !_emailController.text.contains('@') || !_emailController.text.endsWith(".com")) ? Colors.grey : Colors.white, fontSize: 17.0, ),
+                                 style: TextStyle(color: (_passController.text.length<8  || !_emailController.text.contains('@') || !_emailController.text.endsWith(".com")) ? Colors.grey : Colors.white, fontSize: 17.0, ),
 
                                ),
                                onPressed: () {
@@ -195,3 +195,12 @@ extension EmailValidator on String {
         .hasMatch(this);
   }
 }
+
+extension PassValidator on String {
+  bool isValidPass() {
+    return RegExp(
+        r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$')
+        .hasMatch(this);
+  }
+}
+
