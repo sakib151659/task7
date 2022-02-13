@@ -151,7 +151,7 @@ import '../shared/textInputDecoration.dart';
                                    children: <Widget>[
                                      Image.asset('assets/icons/google.png'),
                                      SizedBox(width: 20,),
-                                     const Text('Sign Up with Google',
+                                     const Text('Login with Google',
                                        style: TextStyle(color: Colors.black, fontSize: 17.0, fontWeight: FontWeight.w300 ),
                                      ),
                                    ],
