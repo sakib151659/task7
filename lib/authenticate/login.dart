@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:task7/authenticate/forgetPass.dart';
 import '../home/home.dart';
 import '../shared/textInputDecoration.dart';
  class Login extends StatefulWidget {
@@ -99,6 +100,8 @@ import '../shared/textInputDecoration.dart';
                              style: TextStyle(color: Colors.green),
                            ),
                            onTap: (){
+                             //Navigator.of(context).pop();
+                             Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPass() ));
 
                            },
                          ),
@@ -123,7 +126,7 @@ import '../shared/textInputDecoration.dart';
                                ),
                                onPressed: () {
                                  if (_formKey.currentState!.validate()) {
-                                   Navigator.of(context).pop();
+                                   //Navigator.of(context).pop();
                                    Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomePage() ));
                                  }
 
@@ -157,7 +160,7 @@ import '../shared/textInputDecoration.dart';
                                  ),
 
                                  onPressed: () {
-                                   Navigator.of(context).pop();
+                                   //Navigator.of(context).pop();
                                    //Navigator.push(context, new MaterialPageRoute(builder: (context) => HomePage() ));
                                  }
 
